@@ -23,6 +23,22 @@ app.use('/api/user', testRouter)
 // auth api route
 app.use('/api/auth', authRouter)
 
+// create a middleware for catching errors
+app.use((err, req, res, next) => {
+
+  // getting the error status code
+  const statusCode = err.statusCode || 500;
+
+  // getting the error message
+  const message = err.message || "Internal server error"
+
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message
+  })
+}) 
+
 // connect to database(mongodb)
 mongoose
   .connect(uri)

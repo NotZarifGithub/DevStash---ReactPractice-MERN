@@ -1,13 +1,13 @@
 const User = require("../models/userModel");
-const bcryptjs = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
 
   // extracting data from req.body
   const { username, email, password} = req.body
 
   // encypting the password using brcrypt
-  const hashedPassword = bcryptjs.hashSync(password, 10)
+  const hashedPassword = bcrypt.hashSync(password, 10)
 
   // create a new user
   const newUser = new User({username, email, password: hashedPassword})
@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
   } catch (err) {
     
     // response the error message to the client 
-    res.status(500).json(err.message)
+    next(err)
   } 
 }
 
