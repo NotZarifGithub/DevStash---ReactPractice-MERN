@@ -1,5 +1,8 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const errorHandler = require("../utils/error.js");
+const jwt = require("jsonwebtoken");
+const { restart } = require("nodemon");
 
 const signUp = async (req, res, next) => {
 
@@ -17,11 +20,53 @@ const signUp = async (req, res, next) => {
     // save the new user to the database and send a response to the client
     await newUser.save()
     res.status(201).json("User created successfully")
-  } catch (err) {
-    
+
+  } catch (error) {
+
     // response the error message to the client 
-    next(err)
+    next(error)
   } 
 }
 
-module.exports = signUp;
+const signIn = async (req, res, next) => {
+
+  // extracting data from req.body;
+  const { email, password } = req.body
+
+  try {
+
+    // checking if the email exists
+    const validUser = await User.findOne({ email })
+
+    // if it doesnt exists return error
+    if (!validUser) {
+      return next(errorHandler("404", "User not found"))
+    }
+
+    // checking if the user email match with the passsword
+    const validPassword = bcrypt.compareSync(password, validUser.password)
+
+    // if it doesnt match return error
+    if (!validPassword) {
+      return next(errorHandler("401", "Wrong credentials"))
+    }
+
+    //  generates a JSON Web Token
+    const token = jwt.sign({id: validUser._id}, process.env.JWT_SECRET)
+
+    // destructure "validUser" so that the password stay hidden
+    const {password: pass, ...rest} = validUser._doc
+    res
+      .cookie("access_token", token, {httpOnly: true})
+      .status(200)
+      .json(rest)
+
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = {
+  signUp,
+  signIn,
+}

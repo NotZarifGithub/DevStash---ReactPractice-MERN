@@ -27,8 +27,7 @@ const SignUp = () => {
     setFormData({
       ...formData,
       [e.target.id] : e.target.value
-    })
-    console.log(formData) 
+    }) 
   }
 
   // function for handling form submission
