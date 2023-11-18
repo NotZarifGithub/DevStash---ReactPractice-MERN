@@ -78,15 +78,16 @@ const SignCardPage = ({ signIn, signUp }) => {
   // function for handling google auth
   const handleGoogleAuth = async () => {
     try {
-      const provider = new GoogleAuthProvider()
-      const auth = getAuth(app)
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth(app);
+
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
       
-      const result = await signInWithPopup(auth, provider)
-      
-      const response = await fetch('/api/auth/google', {
+      const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: result.user.displayName,
@@ -94,12 +95,14 @@ const SignCardPage = ({ signIn, signUp }) => {
           photo: result.user.photoURL,
         }),
       });
-
-      const data = await response.json()
-      dispatch(signInSuccess(data))
-      navigate('/')
+      
+      console.log(res);
+      const data = await res.json();
+      console.log('Response from server:', data);
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
-      console.log("cound not sign in with google", error)
+      console.log('could not sign in with google', error);
     }
   }
 

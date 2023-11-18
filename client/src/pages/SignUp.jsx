@@ -1,4 +1,4 @@
-import SignCard from "../components/common/SignCard"
+import SignCard from "../components/ui/SignCard"
 
 const SignUp = () => {
   

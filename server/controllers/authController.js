@@ -67,20 +67,25 @@ const signIn = async (req, res, next) => {
 }
 
 const google = async (req, res, next) => {
+
   try {
+    console.log('Request Body:', req.body);
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = user._doc;
+      console.log('Response to Client:', rest);
       res
         .cookie('access_token', token, { httpOnly: true })
         .status(200)
         .json(rest);
+
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
       const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
+      console.log(req.body.name)
       const newUser = new User({
         username:
           req.body.name.split(' ').join('').toLowerCase() +
@@ -89,6 +94,7 @@ const google = async (req, res, next) => {
         password: hashedPassword,
         avatar: req.body.photo,
       });
+
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
@@ -97,7 +103,9 @@ const google = async (req, res, next) => {
         .status(200)
         .json(rest);
     }
+
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };

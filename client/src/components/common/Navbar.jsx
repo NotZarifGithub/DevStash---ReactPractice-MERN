@@ -2,11 +2,13 @@ import { TbBinaryTree } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
 import { IoReorderTwoOutline } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
-
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion"
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+
+  const { currentUser } = useSelector((state) => state.user)
 
   return (
     <header className="">
@@ -36,19 +38,29 @@ const Navbar = () => {
           {/* links */}
           <div className="items-center hidden gap-2 md:flex">
             <Link 
-              className="flex items-center gap-2" 
-              to={'/sign-in'}
+              className="" 
+              to={'/profile'}
             >
-              <motion.div
-                whileHover={{scale: 1.2 }}
-              >
-                <CiLogin className="text-xl"/>
-              </motion.div>
-              <h1 
-                className="text-lg font-medium -tracking-[1px]"
-              >
-                Sign in
-              </h1> 
+              {currentUser ? (
+                <img 
+                  src={currentUser.avatar} 
+                  alt="user image" 
+                  className="rounded-xl w-[50px]"
+                />
+              ) : (
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    whileHover={{scale: 1.2 }}
+                  >
+                    <CiLogin className="text-xl"/>
+                  </motion.div>
+                  <h1 
+                    className="text-lg font-medium -tracking-[1px]"
+                  >
+                    Sign in
+                  </h1>
+                </div>
+              )} 
             </Link> 
           </div>
           
