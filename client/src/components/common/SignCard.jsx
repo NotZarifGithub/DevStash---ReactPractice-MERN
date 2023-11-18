@@ -1,16 +1,18 @@
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signInStart, signInSuccess, signInFailure } from "../../redux/user/userSlice.js";
 import { Link, useNavigate } from "react-router-dom"
 import PropTypes from "prop-types";
 
 const SignCardPage = ({ signIn, signUp }) => {
 
   const [formData, setFormData] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const { loading, error } = useSelector((state) => state.user)
   
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   SignCardPage.propTypes = {
     signIn: PropTypes.bool.isRequired,
@@ -36,6 +38,7 @@ const SignCardPage = ({ signIn, signUp }) => {
     }) 
   }
 
+  // functions for handling different components routes
   const signUpRoute = {
     route: "/api/auth/sign-up",
     navigation: "/sign-in"
@@ -45,12 +48,12 @@ const SignCardPage = ({ signIn, signUp }) => {
     route: "/api/auth/sign-in",
     navigation: "/"
   }
-
+  
   // function for handling form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch(`${signUp ? signUpRoute.route : signInRoute.route}`, {
         method: 'POST',
         headers: {
@@ -60,16 +63,13 @@ const SignCardPage = ({ signIn, signUp }) => {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
-      } else {
-        setLoading(false);
-        setError(null);
-        navigate(`${signUp ? signUpRoute.navigation : signInRoute.navigation}`)
+        dispatch(signInFailure(data.message));
+        return;
       }
+      dispatch(signInSuccess(data));
+      navigate(`${signUp ? signUpRoute.navigation : signInRoute.navigation}`);
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -135,7 +135,7 @@ const SignCardPage = ({ signIn, signUp }) => {
 
             {/* redirect to sign in page if the user already has an account */}
             <div className="text-xs lg:text-sm">
-              {signUp ? "Have an account?" : "Don't have an account?"} <Link to={`${signIn ? "/sign-in" : "/sign-up"}`} className="hover:font-black">{signUp ? "Sign In" : "Sign Up"}</Link>
+              {signUp ? "Already have an account?" : "Don't have an account?"} <Link to={`${signIn ? "/sign-up" : "/sign-in"}`} className="hover:font-black">{signUp ? "Sign In" : "Sign Up"}</Link>
             </div>
           </form>
           {error && <p className="mt-5 text-red-500">{error}</p>}
