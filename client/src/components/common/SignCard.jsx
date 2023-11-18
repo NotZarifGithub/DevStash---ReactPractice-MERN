@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInSuccess, signInFailure } from "../../redux/user/userSlice.js";
 import { Link, useNavigate } from "react-router-dom"
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { app } from '../../firebase.js'
 import PropTypes from "prop-types";
 
 const SignCardPage = ({ signIn, signUp }) => {
@@ -73,6 +75,34 @@ const SignCardPage = ({ signIn, signUp }) => {
     }
   };
 
+  // function for handling google auth
+  const handleGoogleAuth = async () => {
+    try {
+      const provider = new GoogleAuthProvider()
+      const auth = getAuth(app)
+      
+      const result = await signInWithPopup(auth, provider)
+      
+      const response = await fetch('/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+        }),
+      });
+
+      const data = await response.json()
+      dispatch(signInSuccess(data))
+      navigate('/')
+    } catch (error) {
+      console.log("cound not sign in with google", error)
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center w-full border rounded-xl px-[30px] py-[50px] shadow-sm max-w-[500px] mx-auto gap-8">
            
@@ -124,7 +154,8 @@ const SignCardPage = ({ signIn, signUp }) => {
 
             {/* google auth button */}
             <motion.button 
-              type="submit"  
+              type="button"  
+              onClick={handleGoogleAuth}
               className="border rounded-xl p-[5px] capitalize flex justify-center items-center -tracking-[1px] gap-2"
               variants={buttonVariants}
               whileHover="hover"
