@@ -19,6 +19,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   },
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  zipcode: {
+    type: Number,
+  },
+  country: {
+    type: String,
+  },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

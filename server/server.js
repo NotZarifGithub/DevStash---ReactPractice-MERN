@@ -3,19 +3,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const testRouter = require('./routes/userRoute.js')
 const authRouter = require('./routes/authRoute.js')
+const cookieParser = require('cookie-parser')
+
 const app = express();
 
 // allow json
 app.use(express.json())
 
-
 const PORT = process.env.PORT
 const uri = process.env.MONGO_URI
 
-// connect to the server
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`)
-})
+app.use(cookieParser())
 
 // test api route
 app.use('/api/user', testRouter)
@@ -38,6 +36,11 @@ app.use((err, req, res, next) => {
     message
   })
 }) 
+
+// connect to the server
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`)
+})
 
 // connect to database(mongodb)
 mongoose
