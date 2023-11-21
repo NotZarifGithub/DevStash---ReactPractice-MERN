@@ -9,6 +9,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from '../redux/user/userSlice';
 
 const Profile = () => {
@@ -120,6 +123,28 @@ const Profile = () => {
       }, 3000);
     }
   };
+
+  const handleDeleteUser = async () => {
+
+    const userConfirmed = window.confirm("Are you sure you want to delete your account?");
+    
+    if (userConfirmed) {
+      try {
+        dispatch(deleteUserStart());
+        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+          method: 'DELETE',
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          dispatch(deleteUserFailure(data.message));
+          return;
+        }
+        dispatch(deleteUserSuccess(data));
+      } catch (error) {
+        dispatch(deleteUserFailure(error.message));
+      }
+    }
+  }
   
   return (
     <main className="md:flex max-w-[1200px] mx-auto py-[40px] flex-col gap-10">
@@ -353,14 +378,31 @@ const Profile = () => {
                 />
               </div>
             </div>
-
-            <section className="flex items-center w-full lg:py-[10px]">
+                  
+            <section className="flex items-center w-full lg:py-[10px]  justify-evenly">
+              
+              {/* delete account button */}
+              <motion.button 
+                className="text-xs md:text-sm text-red-700 capitalize w-[150px] hover:font-bold transition-all duration-100 ease-in"
+                onClick={handleDeleteUser}
+              >
+                delete account
+              </motion.button>
+              
+              {/* submit form button */}
               <motion.button
-              type="submit"
-                className="border rounded-lg py-[5px] px-[20px] capitalize font-semibold border-black/30 bg-black/20 shadow-md w-full max-w-[100px] mx-auto"
+                type="submit"
+                className="border rounded-lg py-[5px] capitalize font-semibold border-black/30 bg-black/20 shadow-md w-full max-w-[100px] mx-auto"
                 whileHover={{scale: 0.95}}
               >
                 submit
+              </motion.button>
+
+              {/* sign out button */}
+              <motion.button 
+                className="text-xs md:text-sm text-red-700 capitalize w-[150px] hover:font-bold transition-all duration-100 ease-in"
+              >
+                sign out
               </motion.button>
             </section>
 
