@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const testRouter = require('./routes/userRoute.js')
 const authRouter = require('./routes/authRoute.js')
+const listRouter = require('./routes/listRoute.js')
 const cookieParser = require('cookie-parser')
 
 const app = express();
@@ -20,6 +21,9 @@ app.use('/api/user', testRouter)
 
 // auth api route
 app.use('/api/auth', authRouter)
+
+// list api route
+app.use('/api/list', listRouter)
 
 // create a middleware for catching errors
 app.use((err, req, res, next) => {

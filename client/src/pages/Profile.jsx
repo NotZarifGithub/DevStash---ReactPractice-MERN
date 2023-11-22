@@ -12,6 +12,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserFailure,
+  signOutUserSuccess,
+  signOutUserStart,
 } from '../redux/user/userSlice';
 
 const Profile = () => {
@@ -142,6 +145,26 @@ const Profile = () => {
         dispatch(deleteUserSuccess(data));
       } catch (error) {
         dispatch(deleteUserFailure(error.message));
+      }
+    }
+  }
+
+  const handleSignOutUser = async () => {
+    
+    const userConfirmed = window.confirm("Are you sure you want to sign out?")
+
+    if (userConfirmed) {
+      try {
+        dispatch(signOutUserStart())
+        const res = await fetch("/api/auth/sign-out")
+        const data = await res.json()
+        if (data.success === false) {
+          dispatch(signOutUserFailure(data.message));
+          return;
+        }
+        dispatch(signOutUserSuccess(data));
+      } catch (error) {
+          dispatch(signOutUserFailure(error.message))
       }
     }
   }
@@ -401,6 +424,7 @@ const Profile = () => {
               {/* sign out button */}
               <motion.button 
                 className="text-xs md:text-sm text-red-700 capitalize w-[150px] hover:font-bold transition-all duration-100 ease-in"
+                onClick={handleSignOutUser}
               >
                 sign out
               </motion.button>
