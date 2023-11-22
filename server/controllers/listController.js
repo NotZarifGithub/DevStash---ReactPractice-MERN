@@ -30,5 +30,4 @@ const createList = async (req, res, next) => {
   }
 }
 
-
 module.exports = createList

@@ -41,18 +41,18 @@ app.use((err, req, res, next) => {
   })
 }) 
 
-// connect to the server
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`)
-})
-
 // connect to database(mongodb)
 mongoose
   .connect(uri)
   .then(() => {
-    console.log("Connected to database")
+    
+  // connect to the server
+  app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`)
+  })
+  console.log("Connected to database")
   })
   .catch((err) => {
-    console.log(err)
+    console.log("Error connecting to the database:",err.message)
   })
 

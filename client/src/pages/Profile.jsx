@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase'
+import Sidebar from '../components/common/Sidebar'
+
 import {
   updateUserStart,
   updateUserSuccess,
@@ -18,21 +19,6 @@ import {
 } from '../redux/user/userSlice';
 
 const Profile = () => {
-
-  const profileData = [
-    {
-      link: "account settings",
-      info: "details about your personal information"
-    },
-    {
-      link: "project list",
-      info: "details about your personal information"
-    },
-    {
-      link: "other",
-      info: "details about your personal information"
-    },
-  ]
 
   const { currentUser, error } = useSelector((state) => state.user)
   const imageFileRef = useRef(null)
@@ -180,30 +166,7 @@ const Profile = () => {
       </section>
       
       <section className="flex">
-        <section className="px-[20px] flex-col gap-3 hidden md:flex">
-          
-          {/* button */}
-          {profileData.map((item, index) => (
-            <Link
-              key={index}
-              to={{}}
-              className="max-w-[300px] mx-auto"
-            >
-              <motion.button 
-                whileHover={{scale: 1.05}}
-                key={index} 
-                className="inline-flex flex-col items-center justify-center capitalize border rounded-lg shadow-md px-[20px] py-[5px]"
-              >
-                <h1 className="font-semibold">
-                  {item.link}
-                </h1>
-                <p className="text-xs text-center text-black/80">
-                  {item.info}
-                </p>
-              </motion.button>
-            </Link>
-          ))}
-        </section>
+        <Sidebar />
 
         {/* profile info */}
         <section className="px-[20px] w-full md:px-[30px] py-[20px] md:py-0 flex flex-col gap-3">
@@ -234,7 +197,7 @@ const Profile = () => {
               
               {/* button */}
               <motion.button
-                className="border rounded-lg py-[5px] px-[20px] capitalize font-semibold border-black/30 bg-black/20 shadow-md hidden lg:flex"
+                className="border rounded-lg py-[5px] px-[20px] capitalize font-semibold border-black bg-black text-white shadow-md hidden lg:flex"
                 onClick={() => imageFileRef.current.click()}
                 onChange={(e) => setFile(e.target.files[0])}
                 whileHover={{y: -5}}
@@ -415,7 +378,7 @@ const Profile = () => {
               {/* submit form button */}
               <motion.button
                 type="submit"
-                className="border rounded-lg py-[5px] capitalize font-semibold border-black/30 bg-black/20 shadow-md w-full max-w-[100px] mx-auto"
+                className="border rounded-lg py-[5px] capitalize font-semibold border-black bg-black text-white shadow-md w-full max-w-[100px] mx-auto"
                 whileHover={{scale: 0.95}}
               >
                 submit
