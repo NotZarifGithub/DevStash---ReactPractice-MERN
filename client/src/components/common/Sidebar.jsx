@@ -54,7 +54,7 @@ const Sidebar = () => {
               {/* if cursor hover on the project list, button create listing will pop up */}
               {index === 1 && isActive && (
                 <motion.div
-                  className="text-xs uppercase border rounded-lg md:text-sm py-[5px] px-[10px] z-10 "
+                  className="text-xs uppercase border rounded-lg md:text-sm py-[5px] px-[10px] z-10"
                   whileHover={{
                     fontWeight: "bold", 
                     borderColor: "black"
@@ -65,7 +65,7 @@ const Sidebar = () => {
                   <Link
                     to={"/create-list"}
                   >
-                    create listing
+                    create list 
                   </Link>
                 </motion.div>
               )}

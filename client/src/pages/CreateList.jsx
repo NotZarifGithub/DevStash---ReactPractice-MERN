@@ -19,7 +19,6 @@ const CreateList = () => {
   })
   const { currentUser } = useSelector((state) => state.user)
   
-  
   const handleChange = (e) => {
     const {id, value} = e.target
 
@@ -111,7 +110,7 @@ const CreateList = () => {
       if (data.success === false) {
         setError(data.message)
       }
-      navigate(`/project/${data._id}`)
+      navigate(`/project`)
       
     } catch (error) {
       setError(error.message)
@@ -235,7 +234,7 @@ const CreateList = () => {
               >
                 <img 
                 src={url} 
-                alt="" 
+                alt="image" 
                 className="border rounded-xl drop-shadow-2xl shadow-lg border-black w-[400px]"
               />
               <button
