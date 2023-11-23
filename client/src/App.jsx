@@ -8,6 +8,7 @@ import Navbar from './components/common/Navbar.jsx';
 import PrivateRoute from './components/ui/PrivateRoute.jsx';
 import Project from './pages/Project.jsx';
 import CreateList from './pages/CreateList.jsx';
+import UpdateList from './pages/updateList.jsx';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/profile' element={<Profile />}/>
           <Route path='/create-list' element={<CreateList />}/>  
           <Route path='/project' element={<Project />}/>
+          <Route path='/update-list/:listId' element={<UpdateList />}/>
         </Route>
       </Routes>
     </BrowserRouter>

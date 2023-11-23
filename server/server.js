@@ -16,7 +16,7 @@ const uri = process.env.MONGO_URI
 
 app.use(cookieParser())
 
-// test api route
+// user api route
 app.use('/api/user', testRouter)
 
 // auth api route
