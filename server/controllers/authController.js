@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const errorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
-const { restart } = require("nodemon");
 
 const signUp = async (req, res, next) => {
 

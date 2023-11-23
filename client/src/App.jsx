@@ -7,7 +7,7 @@ import Profile from './pages/Profile.jsx';
 import Navbar from './components/common/Navbar.jsx';
 import PrivateRoute from './components/ui/PrivateRoute.jsx';
 import Project from './pages/Project.jsx';
-import CreateListing from './pages/CreateListing.jsx';
+import CreateList from './pages/CreateList.jsx';
 
 const App = () => {
   return (
@@ -20,10 +20,9 @@ const App = () => {
         <Route path='/about' element={<About />}/>
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />}/>
-          <Route path='/create-listing' element={<CreateListing />}/>  
+          <Route path='/create-list' element={<CreateList />}/>  
           <Route path='/project' element={<Project />}/>
         </Route>
-        
       </Routes>
     </BrowserRouter>
   )

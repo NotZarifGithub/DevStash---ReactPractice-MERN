@@ -63,7 +63,7 @@ const Sidebar = () => {
                   onMouseLeave={() => index === 1 && setIsActive(false)}
                 >
                   <Link
-                    to={"/create-listing"}
+                    to={"/create-list"}
                   >
                     create listing
                   </Link>

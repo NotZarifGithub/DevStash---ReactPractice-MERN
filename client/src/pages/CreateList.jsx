@@ -4,7 +4,8 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { app } from '../firebase'
-const CreateListing = () => {
+
+const CreateList = () => {
 
   const imageFileRef = useRef(null)
   const navigate = useNavigate()
@@ -235,7 +236,7 @@ const CreateListing = () => {
                 <img 
                 src={url} 
                 alt="" 
-                className="border-2 border-black w-[400px]"
+                className="border rounded-xl drop-shadow-2xl shadow-lg border-black w-[400px]"
               />
               <button
                 type='button'
@@ -252,4 +253,4 @@ const CreateListing = () => {
   )
 }
 
-export default CreateListing
+export default CreateList
