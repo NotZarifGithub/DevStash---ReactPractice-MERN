@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const listSchema = new mongoose.Schema({
-  title: {
+  projectName: {
     type: String,
     required: true,
   },
@@ -9,7 +9,7 @@ const listSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imageURL: {
+  imageUrls: {
     type: Array,
     required: true,
   },

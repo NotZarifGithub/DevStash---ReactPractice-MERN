@@ -10,14 +10,7 @@ const createList = async (req, res, next) => {
 
     if (existingList) return res.status(400).json({message: "User already has an existing list"})
 
-    const { title, description, imageURL } = req.body
-    console.log(req.body)
-    const list = await List.create({
-      title,
-      description,
-      imageURL,
-      user: userId,
-    })
+    const list = await List.create(req.body)
     
     res.status(200).json({ 
       list,
