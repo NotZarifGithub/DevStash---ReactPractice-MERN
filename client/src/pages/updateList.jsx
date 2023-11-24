@@ -125,7 +125,6 @@ const UpdateList = () => {
         }),
       });
       const data = await res.json()
-      console.log('Backend Response:', data)
       if (data.success === false) {
         setError(data.message)
       }
