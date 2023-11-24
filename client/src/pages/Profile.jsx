@@ -160,12 +160,14 @@ const Profile = () => {
     <main className="md:flex max-w-[1200px] mx-auto py-[40px] flex-col gap-10">
 
       {/* page name */}
-      <section className="px-[20px]">
-        <h1 className="text-2xl font-semibold uppercase text-black/80">
-          profile
-        </h1>
-      </section>
-      
+      <ComponentSlider > 
+        <section className="px-[20px]">
+          <h1 className="text-2xl font-semibold uppercase text-black/80">
+            profile
+          </h1>
+        </section>
+      </ComponentSlider>
+
       <section className="flex">
         <Sidebar />
 

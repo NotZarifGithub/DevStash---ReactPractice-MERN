@@ -40,54 +40,62 @@ const Home = () => {
 
       <section className="flex flex-col md:gap-12 md:flex-row md:h-[600px] items-center h-[600px]">
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentHero}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col flex-1 gap-8 max-w-[450px]" 
-          >
-            <motion.h1
+        <AnimatePresence mode="wait"> 
+            <motion.div
               key={currentHero}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-xl font-black md:text-3xl lg:text-6xl"
+              className="flex flex-col flex-1 gap-8 max-w-[450px]" 
             >
-              {heroSectionData[currentHero].title}
-            </motion.h1>
-            <motion.p
-              key={currentHero}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="lg:text-lg"
-            >
-              {heroSectionData[currentHero].desc}
-            </motion.p>
-          </motion.div>
+              <ComponentSlider >
+                <motion.h1
+                  key={currentHero}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-xl font-black md:text-3xl lg:text-6xl"
+                >
+                  {heroSectionData[currentHero].title}
+                </motion.h1>
+              </ComponentSlider>
+              
+              <ComponentSlider delay={0.3}>
+                <motion.p
+                  key={currentHero}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="lg:text-lg"
+                >
+                  {heroSectionData[currentHero].desc}
+                </motion.p>
+              </ComponentSlider>
+            </motion.div>  
         </AnimatePresence>
 
         {/* cta */}
-        <motion.button
-          className="uppercase border py-[10px] px-[20px] rounded-xl shadow-sm drop-shadow-md max-w-[400px]"
-          initial={{boxShadow: "0 0 5px rgba(0, 0, 0, 0.2)",}}
-          whileHover={{
-            boxShadow: "0 0 15px rgba(0, 0, 0, 0.2)",
-            transition:{ duration: 0.2, ease: "easeInOut" }
-            
-          }}
-        >
-          <Link
-            to={'/sign-in'}
+        
+        <ComponentSlider delay={0.8}>
+          <motion.button
+            className="uppercase border py-[10px] px-[20px] rounded-xl shadow-sm drop-shadow-md max-w-[400px]"
+            initial={{boxShadow: "0 0 5px rgba(0, 0, 0, 0.2)",}}
+            whileHover={{
+              boxShadow: "0 0 15px rgba(0, 0, 0, 0.2)",
+              transition:{ duration: 0.2, ease: "easeInOut" }
+              
+            }}
           >
-            get started
-          </Link>
-        </motion.button>
+            <Link
+              to={'/sign-in'}
+            >
+              get started
+            </Link>
+          </motion.button>
+        </ComponentSlider>
 
         {/* hero image */}
         <div className="flex-1">
