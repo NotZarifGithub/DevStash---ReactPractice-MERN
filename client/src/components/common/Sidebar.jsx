@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ComponentSlider from "../animation/ComponentSlider";
 
 const Sidebar = () => {
 
@@ -29,8 +30,12 @@ const Sidebar = () => {
           
           {/* button */}
           {profileData.map((item, index) => (
-            <motion.div
+            <ComponentSlider
               key={index}
+              delay={(index + 1) * 0.3}
+            > 
+              <motion.div
+              
               className="max-w-[300px] mx-auto"
               whileHover={{
                 scale: 1.05,
@@ -70,6 +75,8 @@ const Sidebar = () => {
                 </motion.div>
               )}
             </motion.div>
+            </ComponentSlider>
+            
           ))}
         </section>
   )

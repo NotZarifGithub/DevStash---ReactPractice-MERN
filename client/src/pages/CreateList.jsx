@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { app } from '../firebase'
+import ComponentSlider from "../components/animation/ComponentSlider"
 
 const CreateList = () => {
 
@@ -124,86 +125,99 @@ const CreateList = () => {
 
       {/* store your project */}
       <section className="px-[20px] capitalize flex flex-col gap-8 py-[20px] relative">
-        <div className=" tracking-[10px] w-[200px] md:text-lg md:w-[300px] lg:text-xl">
-          add a new project
-        </div>
+
+        <ComponentSlider delay={0.4}>
+          
+        </ComponentSlider>
+        <ComponentSlider >
+          <div className=" tracking-[10px] w-[200px] md:text-lg md:w-[300px] lg:text-xl">
+            add a new project
+          </div>
+        </ComponentSlider>
+
         <form 
           className="flex flex-col gap-6 max-w-[650px]"
           onSubmit={handleSubmit}
         >
           
           {/* project name input */}
-          <div className="flex flex-col gap-4">
-            <label 
-              htmlFor="project name"
-              className="text-sm font-semibold capitalize text-black/80 "
-            >
-              project name
-            </label>
-            <input 
-              type="text" 
-              id="projectName"
-              name="project name"
-              autoComplete="off"
-              className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
-              maxLength={64}
-              minLength={10}
-              required
-              onChange={handleChange}
-            />
-          </div>
+          <ComponentSlider delay={0.4}>
+            <div className="flex flex-col gap-4">
+              <label 
+                htmlFor="project name"
+                className="text-sm font-semibold capitalize text-black/80 "
+              >
+                project name
+              </label>
+              <input 
+                type="text" 
+                id="projectName"
+                name="project name"
+                autoComplete="off"
+                className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
+                maxLength={64}
+                minLength={10}
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </ComponentSlider>
 
-          {/* description input */}
-          <div className="flex flex-col gap-4">
-            <label 
-              htmlFor="description"
-              className="text-sm font-semibold capitalize text-black/80 "
-            >
-              description
-            </label>
-            <input 
-              type="text" 
-              id="description"
-              name="description"
-              autoComplete="off"
-              className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
-              required
-              onChange={handleChange}
-            />
-          </div>
+          <ComponentSlider delay={0.8}>
+            
+            {/* description input */}
+            <div className="flex flex-col gap-4">
+              <label 
+                htmlFor="description"
+                className="text-sm font-semibold capitalize text-black/80 "
+              >
+                description
+              </label>
+              <input 
+                type="text" 
+                id="description"
+                name="description"
+                autoComplete="off"
+                className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </ComponentSlider>
 
           {/* image input */}
           <div className="flex flex-col justify-between gap-5 md:flex-row">
-
-              <input
-                type="file"
-                ref={imageFileRef}
-                hidden
-                accept="image/.*"
-                multiple
-                id="imageInput" 
-                name="description"
-                className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
-                onChange={(e) => {
-                  setFile(e.target.files)
+            
+            <input
+              type="file"
+              ref={imageFileRef}
+              hidden
+              accept="image/.*"
+              multiple
+              id="imageInput" 
+              name="description"
+              className={`border rounded-xl py-[5px] px-[10px] shadow-sm focus:outline-none `}
+              onChange={(e) => {
+                setFile(e.target.files)
+              }}
+            />
+            <div className="flex flex-col gap-1 md:gap-4">
+              <motion.button
+                type="button"
+                className="border rounded-lg py-[5px] px-[10px] capitalize font-semibold bg-black text-white shadow-md md:h-[50px] w-[200px]"
+                onClick={async () => {
+                  await imageFileRef.current.click(),
+                  handleImageSubmit()
                 }}
-              />
-              <div className="flex flex-col gap-1 md:gap-4">
-                <motion.button
-                  type="button"
-                  className="border rounded-lg py-[5px] px-[10px] capitalize font-semibold bg-black text-white shadow-md md:h-[50px] w-[200px]"
-                  onClick={async () => {
-                    await imageFileRef.current.click(),
-                    handleImageSubmit()
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                >
+                whileHover={{ scale: 1.02 }}
+              >
                 choose image
-                </motion.button>
-                <p className="text-xs md:text-sm text-black/70">
+              </motion.button>
+              <p className="text-xs md:text-sm text-black/70">
                 {file.length === 0 ? "first image will be the cover (max-6)" : `${file.length} images selected`}
-                </p>
-              </div>
+              </p>
+            </div>
+              
             <button
               type='button'
               onClick={handleImageSubmit}
