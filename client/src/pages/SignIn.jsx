@@ -1,11 +1,12 @@
 import SignCard from "../components/ui/SignCard"
+import ComponentSlider from "../components/animation/ComponentSlider"
 
 const SignIn = () => {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-[20px] flex items-center justify-center h-[calc(100vh-300px)]">
 
-      {/* card */}
+        {/* card */}
         <SignCard signIn={true} signUp={false}/>
       </section>
     </main>

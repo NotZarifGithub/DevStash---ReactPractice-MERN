@@ -43,12 +43,12 @@ const SignCardPage = ({ signIn, signUp }) => {
   // functions for handling different components routes
   const signUpRoute = {
     route: "/api/auth/sign-up",
-    navigation: "/sign-in"
+    navigation: "/profile"
   }
 
   const signInRoute = {
     route: "/api/auth/sign-in",
-    navigation: "/"
+    navigation: "/profile"
   }
   
   // function for handling form submission

@@ -71,9 +71,8 @@ const Project = () => {
         </section>
       </ComponentSlider>
       
-      <section className="flex">
-        
-        <div className="hidden lg:inline-block">
+      <section className="flex flex-col md:flex-row">
+        <div className="flex items-start justify-start py-[20px] md:py-0">
           <Sidebar />
         </div>
     

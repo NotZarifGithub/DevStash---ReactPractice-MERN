@@ -38,8 +38,9 @@ const Home = () => {
   return (
     <main className="max-w-[1400px] mx-auto px-[20px] py-[50px] md:py-[20px] lg:py-[50px]">
 
-      <section className="flex flex-col md:gap-12 md:flex-row md:h-[600px] items-center h-[300px]">
+      <section className="flex flex-col md:gap-12 md:flex-row md:h-[600px] items-center h-[600px]">
 
+        {/* hero  */}
         <AnimatePresence mode="wait"> 
             <motion.div
               key={currentHero}
@@ -78,7 +79,6 @@ const Home = () => {
         </AnimatePresence>
 
         {/* cta */}
-        
         <ComponentSlider delay={0.8}>
           <motion.button
             className="uppercase border py-[10px] px-[20px] rounded-xl shadow-sm drop-shadow-md max-w-[400px]"

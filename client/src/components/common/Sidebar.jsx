@@ -26,7 +26,7 @@ const Sidebar = () => {
   const [isActive, setIsActive] = useState(false)
   
   return (
-    <section className="px-[20px] flex-col gap-3 hidden md:flex">
+    <section className="px-[20px] flex-col gap-3 flex">
           
           {/* button */}
           {profileData.map((item, index) => (

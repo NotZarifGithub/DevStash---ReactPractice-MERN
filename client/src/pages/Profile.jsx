@@ -168,8 +168,10 @@ const Profile = () => {
         </section>
       </ComponentSlider>
 
-      <section className="flex">
-        <Sidebar />
+      <section className="flex flex-col md:flex-row">
+        <div className="flex items-start justify-start py-[20px] md:py-0">
+          <Sidebar />
+        </div>
 
         {/* profile info */}
         <section className="px-[20px] w-full md:px-[30px] py-[20px] md:py-0 flex flex-col gap-3">
