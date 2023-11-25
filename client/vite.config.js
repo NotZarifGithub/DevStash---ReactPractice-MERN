@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-       target: 'https://devstash-sigma.vercel.app/',
+       target: 'https://devstashh.onrender.com',
        secure: false
       }
     }
