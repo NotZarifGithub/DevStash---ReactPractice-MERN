@@ -5,6 +5,7 @@ const testRouter = require('./routes/userRoute.js')
 const authRouter = require('./routes/authRoute.js')
 const listRouter = require('./routes/listRoute.js')
 const cookieParser = require('cookie-parser')
+const cors = require('cors');
 
 const app = express();
 
@@ -15,6 +16,10 @@ const PORT = process.env.PORT
 const uri = process.env.MONGO_URI
 
 app.use(cookieParser())
+
+// Example CORS configuration in your server
+
+app.use(cors());
 
 // user api route
 app.use('/api/user', testRouter)
