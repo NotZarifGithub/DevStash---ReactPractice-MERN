@@ -19,7 +19,10 @@ app.use(cookieParser())
 
 // Example CORS configuration in your server
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://devstashh.onrender.com',
+  credentials: true, // enable credentials (cookies, authorization headers)
+}));
 
 // user api route
 app.use('/api/user', testRouter)
