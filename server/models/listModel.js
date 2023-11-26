@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const listSchema = new mongoose.Schema({
   projectName: {
@@ -15,11 +15,11 @@ const listSchema = new mongoose.Schema({
   },
   user: {
     type: String,
-    ref: "User",
+    ref: 'User',
     required: true,
-  }
-})
+  },
+});
 
-const List = mongoose.model("List", listSchema)
+const List = mongoose.model('List', listSchema);
 
-module.exports = List
+export default List;

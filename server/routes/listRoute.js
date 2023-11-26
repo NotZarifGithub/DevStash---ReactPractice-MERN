@@ -1,11 +1,12 @@
-const express = require('express');
-const { createList, getList, deleteList, updateList }  = require('../controllers/listController.js');
-const verifyToken = require('../utils/verifyUser.js');
-const router = express.Router()
+import express from 'express';
+import { createList, getList, deleteList, updateList } from '../controllers/listController.js';
+import verifyToken from '../utils/verifyUser.js';
 
-router.post('/create', createList)
-router.delete('/delete/:id', verifyToken, deleteList)
-router.post('/update/:id', verifyToken, updateList)
-router.get('/get/:id', getList)
+const router = express.Router();
 
-module.exports = router
+router.post('/create', createList);
+router.delete('/delete/:id', verifyToken, deleteList);
+router.post('/update/:id', verifyToken, updateList);
+router.get('/get/:id', getList);
+
+export default router;

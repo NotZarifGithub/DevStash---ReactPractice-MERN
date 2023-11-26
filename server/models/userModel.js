@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: {
-    type: String,  
+    type: String,
     required: true,
     unique: true,
   },
   email: {
-    type: String,  
+    type: String,
     required: true,
     unique: true,
   },
   password: {
-    type: String,  
+    type: String,
     required: true,
   },
-  avatar:{
+  avatar: {
     type: String,
-    default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+    default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   },
   address: {
     type: String,
@@ -38,4 +38,4 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User
+export default User;

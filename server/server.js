@@ -1,23 +1,39 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const testRouter = require('./routes/userRoute.js');
-const authRouter = require('./routes/authRoute.js');
-const listRouter = require('./routes/listRoute.js');
-const cookieParser = require('cookie-parser');
-const path = require('path');
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import testRouter from './routes/userRoute.js';
+import authRouter from './routes/authRoute.js';
+import listRouter from './routes/listRoute.js';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+
+dotenv.config();
+
+const PORT = process.env.PORT;
+const uri = process.env.MONGO_URI;
+
+// connect to database(mongodb)
+mongoose
+  .connect(uri)
+  .then(() => {
+    // connect to the server
+    app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`);
+    });
+    console.log('Connected to database');
+  })
+  .catch((err) => {
+    console.log('Error connecting to the database:', err.message);
+  });
+  const __dirname = path.resolve();
+
 
 const app = express();
 
 // allow json
 app.use(express.json());
 
-const PORT = process.env.PORT;
-const uri = process.env.MONGO_URI;
-
 app.use(cookieParser());
-
-// Example CORS configuration in your server
 
 // user api route
 app.use('/api/user', testRouter);
@@ -47,17 +63,3 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-// connect to database(mongodb)
-mongoose
-  .connect(uri)
-  .then(() => {
-    // connect to the server
-    app.listen(PORT, () => {
-      console.log(`listening on port ${PORT}`);
-    });
-    console.log('Connected to database');
-  })
-  .catch((err) => {
-    console.log('Error connecting to the database:', err.message);
-  });

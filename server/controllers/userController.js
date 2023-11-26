@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt');
-const User = require('../models/userModel.js');
-const errorHandler = require('../utils/error.js');
-const List = require('../models/listModel.js');
+import bcrypt from 'bcryptjs';
+import User from '../models/userModel.js';
+import errorHandler from '../utils/error.js';
+import List from '../models/listModel.js';
 
 const userController = (req, res) => {
-  res.send("hello world")
-}
+  res.send('hello world');
+};
 
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
@@ -42,34 +42,29 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
-  if (req.params.id !== req.params.id) 
-    return next(errorHandler(401, "You can only delete your own account"))
+  if (req.params.id !== req.params.id)
+    return next(errorHandler(401, 'You can only delete your own account'));
   try {
-    await User.findByIdAndDelete(req.params.id)
-    res.clearCookie("access_token")
-    res.status(200).json({message:"User has been deleted"})
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie('access_token');
+    res.status(200).json({ message: 'User has been deleted' });
   } catch (error) {
-      next(error)
+    next(error);
   }
-}
+};
 
-const getUserList = async ( req, res, next ) => {
+const getUserList = async (req, res, next) => {
   if (req.user.id === req.params.id) {
     try {
-      const list = await List.find({user: req.params.id})
-      if (list.length > 0) return res.status(200).json(list)
-      res.status(404).json({message: "the list is empty"})
+      const list = await List.find({ user: req.params.id });
+      if (list.length > 0) return res.status(200).json(list);
+      res.status(404).json({ message: 'The list is empty' });
     } catch (error) {
-      next(error)
+      next(error);
     }
   } else {
-    return next(errorHandler(401, "You can only view your own list!"))
+    return next(errorHandler(401, 'You can only view your own list!'));
   }
-}
-
-module.exports = {
-  userController,
-  updateUser,
-  deleteUser,
-  getUserList,
 };
+
+export { userController, updateUser, deleteUser, getUserList };
