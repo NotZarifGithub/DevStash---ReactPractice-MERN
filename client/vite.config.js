@@ -6,10 +6,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-       target: 'https://devstash.onrender.com/',
-       secure: false
-      }
-    }
+        target: 'https://devstash.onrender.com',
+        secure: false,
+        changeOrigin: true, // Add this line if needed
+      },
+    },
   },
   plugins: [react()],
 })
