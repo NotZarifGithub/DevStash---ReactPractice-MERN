@@ -20,7 +20,7 @@ app.use(cookieParser())
 // Example CORS configuration in your server
 
 app.use(cors({
-  origin: 'https://devstashh.onrender.com',
+  origin: ['https://devstash-sigma.vercel.app', 'https://devstash.onrender.com'],
   credentials: true, // enable credentials (cookies, authorization headers)
 }));
 

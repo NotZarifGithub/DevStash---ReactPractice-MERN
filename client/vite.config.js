@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-       target: 'https://devstashh.onrender.com',
+       target: 'https://devstash.onrender.com/',
        secure: false
       }
     }
