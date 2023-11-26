@@ -160,18 +160,14 @@ const Profile = () => {
     <main className="md:flex max-w-[1200px] mx-auto py-[40px] flex-col gap-10">
 
       {/* page name */}
-      <ComponentSlider > 
-        <section className="px-[20px]">
-          <h1 className="text-2xl font-semibold uppercase text-black/80">
-            profile
-          </h1>
-        </section>
-      </ComponentSlider>
-
-      <section className="flex flex-col md:flex-row">
-        <div className="flex items-start justify-start py-[20px] md:py-0">
-          <Sidebar />
-        </div>
+      <section className="px-[20px]">
+        <h1 className="text-2xl font-semibold uppercase text-black/80">
+          profile
+        </h1>
+      </section>
+      
+      <section className="flex">
+        <Sidebar />
 
         {/* profile info */}
         <section className="px-[20px] w-full md:px-[30px] py-[20px] md:py-0 flex flex-col gap-3">
